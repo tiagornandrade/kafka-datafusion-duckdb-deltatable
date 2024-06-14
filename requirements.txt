@@ -1,0 +1,7 @@
+confluent-kafka
+faker
+kafka-python
+duckdb
+pandas
+minio
+deltalake
