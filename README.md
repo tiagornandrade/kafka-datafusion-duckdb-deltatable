@@ -1,6 +1,15 @@
-# kafka-minio-duckdb-deltatable-
+# Integração Kafka, MinIO, DuckDB e DeltaTable
 
-# Projeto Kafka-MinIO-DuckDB-DeltaTable
+Este projeto demonstra uma integração entre Kafka, MinIO, DuckDB e DeltaTable. Ele implementa um pipeline de dados que lê mensagens de um tópico no Kafka, processa os dados e armazena os resultados em tabelas Delta Lake utilizando o MinIO como backend de armazenamento. O DuckDB é utilizado para realizar consultas SQL sobre os dados no formato Delta. Esta configuração é ideal para cenários que exigem ingestão de dados em tempo real e escalável, com capacidades eficientes de consulta.
+
+## Funcionalidades
+- Kafka: Realiza o streaming de dados em tempo real para o pipeline.
+- MinIO: Armazenamento de objetos para gerenciar as tabelas Delta Lake.
+- DuckDB: Executa consultas SQL sobre as tabelas Delta Lake.
+- DeltaTable: Gerencia o formato de armazenamento transacional para data lakes.
+
+# Como usar
+Para começar, clone o repositório e siga as instruções de configuração do Kafka, MinIO e DuckDB. O arquivo Docker Compose fornecido facilita a implantação de toda a stack.
 
 ## Requisitos
 
