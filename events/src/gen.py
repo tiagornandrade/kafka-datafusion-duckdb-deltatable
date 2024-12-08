@@ -1,5 +1,6 @@
 import json
 import datetime
+import random
 from faker import Faker
 from confluent_kafka import Producer
 import logging
@@ -8,8 +9,8 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-USER_TOPIC = 'user-events'
-producer = Producer({'bootstrap.servers': 'localhost:9092'})
+USER_TOPIC = "user-events"
+producer = Producer({"bootstrap.servers": "localhost:9092"})
 
 fake = Faker()
 
@@ -19,7 +20,9 @@ def gen_event():
         "uuid": str(fake.uuid4()),
         "name": fake.name(),
         "city": fake.city(),
-        "timestamp": datetime.datetime.now().timestamp()
+        "country": fake.country(),
+        "is_deleted": random.choice([1, 0]),
+        "timestamp": datetime.datetime.now().timestamp(),
     }
 
 
@@ -31,7 +34,7 @@ def produce_events(events):
     logger.info(f"Producing {len(events)} events to topic '{USER_TOPIC}'...")
     for event in events:
         event_json = json.dumps(event)
-        producer.produce(USER_TOPIC, key=b'user_key', value=event_json.encode('utf-8'))
+        producer.produce(USER_TOPIC, key=b"user_key", value=event_json.encode("utf-8"))
     producer.flush()
     logger.info("Events production completed.")
 
