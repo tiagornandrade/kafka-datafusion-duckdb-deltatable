@@ -1,6 +1,6 @@
-confluent-kafka
+confluent - kafka
 faker
-kafka-python
+kafka - python
 duckdb
 pandas
 minio

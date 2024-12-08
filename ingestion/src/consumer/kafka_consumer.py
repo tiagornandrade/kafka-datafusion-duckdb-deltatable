@@ -3,6 +3,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 def consume_messages(topic, consumer_config):
     logger.info(f"Starting to consume messages from topic '{topic}'...")
     consumer = Consumer(consumer_config)
@@ -17,7 +18,7 @@ def consume_messages(topic, consumer_config):
             if msg.error():
                 logger.error(f"Error consuming message: {msg.error()}")
                 continue
-            messages.append(msg.value().decode('utf-8'))
+            messages.append(msg.value().decode("utf-8"))
     except KeyboardInterrupt:
         logger.info("User interrupted. Closing consumer...")
     finally:

@@ -1,8 +1,9 @@
 import os
-from config.config import MINIO_ENDPOINT
+from config.CONST import MINIO_ENDPOINT
 import logging
 
 logger = logging.getLogger(__name__)
+
 
 def upload_to_minio(local_path, minio_client, bucket_name, minio_path):
     logger.info(f"Starting upload of DeltaTable to MinIO ({MINIO_ENDPOINT})...")
@@ -18,4 +19,4 @@ def upload_to_minio(local_path, minio_client, bucket_name, minio_path):
             minio_client.fput_object(bucket_name, minio_file, local_file)
             logger.info(f"File '{minio_file}' uploaded to MinIO.")
 
-    logger.info(f'DeltaTable stored on MinIO at {minio_path}')
+    logger.info(f"DeltaTable stored on MinIO at {minio_path}")

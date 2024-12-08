@@ -5,6 +5,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 def process_events(messages):
     logger.info("Processing events...")
     try:
@@ -22,12 +23,12 @@ def process_events(messages):
         df = pd.DataFrame(parsed_messages)
         logger.info(f"Initial parsed DataFrame: {df.head()}")
 
-        if 'uuid' not in df.columns:
+        if "uuid" not in df.columns:
             logger.error("Missing required field 'uuid' in messages. Exiting.")
             return pd.DataFrame()
 
-        con = duckdb.connect(database=':memory:', read_only=False)
-        con.execute('CREATE TABLE events AS SELECT * FROM df')
+        con = duckdb.connect(database=":memory:", read_only=False)
+        con.execute("CREATE TABLE events AS SELECT * FROM df")
         result = con.execute("SELECT * FROM events").fetchdf()
         logger.info(f"Events processed. Total records: {len(result)}")
         return result
