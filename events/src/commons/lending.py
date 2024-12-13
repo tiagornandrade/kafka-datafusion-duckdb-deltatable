@@ -9,7 +9,7 @@ fake = Faker("pt_BR")
 
 class LendingsEvents:
     @staticmethod
-    def generate_loan(x: object) -> object:
+    def generate_loan(x: int) -> dict[str, dict]:
         return {
             data: {
                 "loan_id": str(uuid4()),
