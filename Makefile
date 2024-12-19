@@ -14,3 +14,8 @@ run: fakedata
 	sleep 1
 	make -B ingestion
 
+raw-to-trusted:
+	python3 promotion/src/raw_to_trusted.py
+
+trusted-to-refined:
+	python3 promotion/src/trusted_to_refined.py
