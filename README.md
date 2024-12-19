@@ -1,4 +1,4 @@
-# Integração Kafka, Apache DataFusion, DuckDB e DeltaTable
+# Integração Kafka, DataFusion, DuckDB e DeltaTable
 
 Este projeto demonstra uma integração entre Kafka, Apache DataFusion, DuckDB e DeltaTable. Ele implementa um pipeline de dados que lê mensagens de um tópico no Kafka, processa os dados e armazena os resultados em tabelas Delta Lake. O DuckDB é utilizado para realizar consultas SQL sobre os dados no formato Delta, enquanto o Apache DataFusion oferece uma poderosa camada de processamento distribuído. Esta configuração é ideal para cenários que exigem ingestão de dados em tempo real e escalável, com capacidades eficientes de consulta.
 
