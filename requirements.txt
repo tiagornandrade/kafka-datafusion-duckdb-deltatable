@@ -6,4 +6,3 @@ pandas
 minio
 deltalake
 datafusion
-fireducks
