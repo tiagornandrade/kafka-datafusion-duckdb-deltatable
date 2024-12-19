@@ -1,0 +1,36 @@
+tables:
+  - raw_table: "raw_user_events"
+    trusted_table: "trusted_user_events"
+    rename_columns:
+      uuid: "uuid"
+      name: "user_name"
+      city: "user_city"
+      country: "user_country"
+      is_deleted: "is_deleted"
+      timestamp: "event_timestamp"
+    schema:
+      - {name: "uuid", type: "STRING"}
+      - {name: "user_name", type: "STRING"}
+      - {name: "user_city", type: "STRING"}
+      - {name: "user_country", type: "STRING"}
+      - {name: "is_deleted", type: "BOOLEAN"}
+      - {name: "event_timestamp", type: "TIMESTAMP"}
+  - raw_table: raw_order_events
+    trusted_table: trusted_order_events
+    rename_columns:
+      order_id: order_id
+      product: product_name
+      price: order_price
+      quantity: order_quantity
+      timestamp: event_timestamp
+    schema:
+      - name: order_id
+        type: STRING
+      - name: product_name
+        type: STRING
+      - name: order_price
+        type: DOUBLE
+      - name: order_quantity
+        type: INTEGER
+      - name: event_timestamp
+        type: TIMESTAMP

@@ -5,3 +5,9 @@ duckdb
 pandas
 minio
 deltalake
+datafusion
+<<<<<<< Updated upstream
+fireducks
+=======
+tabulate
+>>>>>>> Stashed changes

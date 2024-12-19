@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 # Integração Kafka, MinIO, DuckDB e DeltaTable
+=======
+# Integração Kafka, DataFusion, DuckDB e DeltaTable
+>>>>>>> Stashed changes
 
 Este projeto demonstra uma integração entre Kafka, MinIO, DuckDB e DeltaTable. Ele implementa um pipeline de dados que lê mensagens de um tópico no Kafka, processa os dados e armazena os resultados em tabelas Delta Lake utilizando o MinIO como backend de armazenamento. O DuckDB é utilizado para realizar consultas SQL sobre os dados no formato Delta. Esta configuração é ideal para cenários que exigem ingestão de dados em tempo real e escalável, com capacidades eficientes de consulta.
 
