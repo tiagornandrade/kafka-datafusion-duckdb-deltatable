@@ -2,13 +2,18 @@ import duckdb
 import pandas as pd
 import tabulate
 import logging
+from datafusion import SessionContext
 from deltalake import DeltaTable
 
 logger = logging.getLogger(__name__)
+ctx = SessionContext()
 delta_table_path = "./database/delta-lake/raw/user-events"
 
 delta_table = DeltaTable(delta_table_path)
-df = delta_table.to_pandas()
+ctx.register_dataset("user_events", delta_table.to_pyarrow_dataset())
+df_raw_user_events = ctx.table("user_events")
+
+df_raw_user_events_pandas = df_raw_user_events.to_pandas()
 
 conn = duckdb.connect("./database/data_lake.duckdb")
 
@@ -25,7 +30,8 @@ conn.execute("""
     )
 """)
 
-conn.execute("INSERT INTO main.raw_user_events SELECT * FROM delta_scan('./database/delta-lake/raw/user-events')")
+conn.register("df_raw_user_events", df_raw_user_events_pandas)
+conn.execute("INSERT INTO main.raw_user_events SELECT * FROM df_raw_user_events")
 
 logger.info("Finish insert data...")
 
