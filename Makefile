@@ -14,6 +14,9 @@ run: fakedata
 	sleep 1
 	make -B ingestion
 
+landing-to-raw:
+	python3 promotion/src/landing_to_raw.py
+
 raw-to-trusted:
 	python3 promotion/src/raw_to_trusted.py
 

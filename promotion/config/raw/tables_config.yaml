@@ -1,0 +1,29 @@
+tables:
+  - name: raw_user_events
+    delta_path: "./database/delta-lake/raw/user-events"
+    schema:
+      - name: uuid
+        type: STRING
+      - name: name
+        type: STRING
+      - name: city
+        type: STRING
+      - name: country
+        type: STRING
+      - name: is_deleted
+        type: BOOLEAN
+      - name: timestamp
+        type: DOUBLE
+  - name: raw_order_events
+    delta_path: "./database/delta-lake/raw/order-events"
+    schema:
+      - name: order_id
+        type: STRING
+      - name: product
+        type: STRING
+      - name: price
+        type: DOUBLE
+      - name: quantity
+        type: INTEGER
+      - name: timestamp
+        type: DOUBLE
