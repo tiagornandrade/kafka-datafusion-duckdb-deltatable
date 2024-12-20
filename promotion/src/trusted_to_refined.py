@@ -6,4 +6,3 @@ from datafusion import SessionContext
 
 logger = logging.getLogger(__name__)
 ctx = SessionContext()
-
