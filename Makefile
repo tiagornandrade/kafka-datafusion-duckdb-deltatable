@@ -5,10 +5,10 @@ down:
 	docker-compose down
 
 fakedata:
-	python3 events/src/gen.py
+	python3.9 events/src/gen.py
 
 ingestion:
-	python3 ingestion/src/main.py
+	python3.9 ingestion/src/main.py
 
 run: fakedata
 	sleep 1
