@@ -5,11 +5,9 @@ CONSUMER_CONF = {
     "auto.offset.reset": "earliest",
 }
 
-MINIO_ENDPOINT = "localhost:9000"
-MINIO_ACCESS_KEY = "minio_access_key"
-MINIO_SECRET_KEY = "minio_secret_key"
-MINIO_BUCKET = "delta-lake"
-MINIO_DELTA_PATH = f"raw/{USER_TOPIC}"
-
 LOCAL_DELTA_PATH = "/tmp/delta_table"
 DELTA_TABLE = f"./database/delta-lake/raw/user-events"
+
+DELTA_TABLE_MAPPING = {
+    "user-events": "./database/delta-lake/raw/user-events",
+}
