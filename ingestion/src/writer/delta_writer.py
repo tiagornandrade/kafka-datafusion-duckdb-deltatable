@@ -1,7 +1,9 @@
-from deltalake import write_deltalake
+import pandas as pd
 import logging
+from deltalake import write_deltalake
 
 logger = logging.getLogger(__name__)
+
 
 class DeltaWriter:
     def __init__(self, path):
@@ -11,6 +13,14 @@ class DeltaWriter:
         if data.empty:
             logger.warning("No data to write to Delta Table. Skipping.")
             return
+
+        if "timestamp" not in data.columns:
+            logger.error(
+                f"Data missing required 'timestamp' field. Available fields: {list(data.columns)}"
+            )
+            raise ValueError(
+                f"Unable to write DeltaTable without 'timestamp' field. Current fields: {list(data.columns)}"
+            )
 
         try:
             logger.info(f"Writing DeltaTable to {self.path} with mode={mode}...")
