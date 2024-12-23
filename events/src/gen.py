@@ -57,7 +57,7 @@ def produce_events(events):
 def main():
     logger.info("Starting event generation and production script...")
 
-    events = gen_events(1000)
+    events = gen_events(5)
     produce_events(events)
 
     logger.info("Script execution completed.")
