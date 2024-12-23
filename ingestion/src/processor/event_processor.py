@@ -5,6 +5,8 @@ import pandas as pd
 import re
 import datetime
 from collections import defaultdict
+from queue import Queue
+from threading import Thread
 
 logger = logging.getLogger(__name__)
 
@@ -34,7 +36,6 @@ def create_table_if_not_exists(con, table_name):
             f"Invalid table name: {table_name}. Ensure the mapping is correct."
         )
         raise ValueError("Table name cannot be None or empty.")
-
     logger.info(f"Ensuring table '{table_name}' exists...")
     table_name = re.sub(r"[^a-zA-Z0-9_]", "_", table_name)
     con.execute(
@@ -56,20 +57,70 @@ def process_in_batches(messages, batch_size):
         yield messages[i : i + batch_size]
 
 
-def process_events(messages, table_mapping, batch_size=1000):
+def process_single_message(queue, valid_events_by_type):
+    while not queue.empty():
+        message = queue.get()
+        try:
+            parsed_message = parse_message(message)
+            if isinstance(parsed_message, list):
+                for sub_message in parsed_message:
+                    handle_single_event(sub_message, valid_events_by_type)
+            else:
+                handle_single_event(parsed_message, valid_events_by_type)
+        except Exception as e:
+            logger.warning(
+                f"Unexpected error processing message: {e}. Message: {message}"
+            )
+            save_invalid_messages([message])
+        finally:
+            queue.task_done()
+
+
+def handle_single_event(event, valid_events_by_type):
+    if event and validate_event(event):
+        event_type = event.get("event_type")
+        if event_type:
+            valid_events_by_type[event_type].append(event)
+        else:
+            logger.error(f"Event is missing 'event_type': {event}. Skipping.")
+            save_invalid_messages([event])
+    else:
+        save_invalid_messages([event])
+
+
+def parse_message(message):
+    try:
+        if isinstance(message, str):
+            return json.loads(message)
+        elif isinstance(message, list):
+            return [
+                json.loads(item) if isinstance(item, str) else item for item in message
+            ]
+        return message
+    except json.JSONDecodeError:
+        logger.warning(f"Invalid JSON message: {message}. Skipping.")
+        return None
+
+
+def process_events(messages, table_mapping, batch_size=1000, num_threads=4):
     logger.info("Starting event processing...")
     con = duckdb.connect(database="./database/events.duckdb", read_only=False)
     valid_events_by_type = defaultdict(list)
 
+    message_queue = Queue()
     for message in messages:
-        if isinstance(message, list):
-            logger.warning(
-                f"Encountered a list in messages: {message}. Iterating through elements."
-            )
-            for sub_message in message:
-                process_single_message(sub_message, valid_events_by_type)
-        else:
-            process_single_message(message, valid_events_by_type)
+        message_queue.put(message)
+
+    threads = []
+    for _ in range(num_threads):
+        thread = Thread(
+            target=process_single_message, args=(message_queue, valid_events_by_type)
+        )
+        thread.start()
+        threads.append(thread)
+
+    for thread in threads:
+        thread.join()
 
     if not valid_events_by_type:
         logger.info("No valid events to process.")
@@ -103,28 +154,3 @@ def process_events(messages, table_mapping, batch_size=1000):
         event_type: pd.DataFrame(events)
         for event_type, events in valid_events_by_type.items()
     }
-
-
-def process_single_message(message, valid_events_by_type):
-    try:
-        message = parse_message(message)
-        if message and validate_event(message):
-            event_type = message.get("event_type")
-            if event_type:
-                valid_events_by_type[event_type].append(message)
-            else:
-                logger.error(f"Event is missing 'event_type': {message}. Skipping.")
-                save_invalid_messages([message])
-        else:
-            save_invalid_messages([message])
-    except Exception as e:
-        logger.warning(f"Unexpected error processing message: {e}. Message: {message}")
-        save_invalid_messages([message])
-
-
-def parse_message(message):
-    try:
-        return json.loads(message) if isinstance(message, str) else message
-    except json.JSONDecodeError:
-        logger.warning(f"Invalid JSON message: {message}. Skipping.")
-        return None
