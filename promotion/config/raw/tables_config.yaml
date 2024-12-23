@@ -1,0 +1,70 @@
+tables:
+  - name: raw_user_events_created
+    delta_path: "./database/delta-lake/landing/user-events-created"
+    schema:
+      - name: event_uuid
+        type: STRING
+      - name: event_type
+        type: STRING
+      - name: event_timestamp
+        type: TIMESTAMP
+      - name: timestamp
+        type: TIMESTAMP
+      - name: account_id
+        type: STRING
+      - name: account_type
+        type: STRING
+      - name: balance
+        type: INTEGER
+      - name: currency
+        type: STRING
+      - name: status
+        type: STRING
+      - name: user_id
+        type: STRING
+  - name: raw_user_events_deleted
+    delta_path: "./database/delta-lake/landing/user-events-deleted"
+    schema:
+      - name: event_uuid
+        type: STRING
+      - name: event_type
+        type: STRING
+      - name: event_timestamp
+        type: TIMESTAMP
+      - name: timestamp
+        type: TIMESTAMP
+      - name: account_id
+        type: STRING
+      - name: account_type
+        type: STRING
+      - name: balance
+        type: INTEGER
+      - name: currency
+        type: STRING
+      - name: status
+        type: STRING
+      - name: user_id
+        type: STRING
+  - name: raw_user_events_updated
+    delta_path: "./database/delta-lake/landing/user-events-updated"
+    schema:
+      - name: event_uuid
+        type: STRING
+      - name: event_type
+        type: STRING
+      - name: event_timestamp
+        type: TIMESTAMP
+      - name: timestamp
+        type: TIMESTAMP
+      - name: account_id
+        type: STRING
+      - name: account_type
+        type: STRING
+      - name: balance
+        type: INTEGER
+      - name: currency
+        type: STRING
+      - name: status
+        type: STRING
+      - name: user_id
+        type: STRING

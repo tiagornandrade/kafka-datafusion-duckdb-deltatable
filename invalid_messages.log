@@ -1,0 +1,4 @@
+[
+    '{"event_uuid": "f9b2e8e7-309d-413d-81df-ff7ba7a69137", "event_type": "updated", "event_timestamp": "2024-12-20 15:08:21.663995", "payload": {"account_id": "be524a81-b3a4-465b-bd20-092786f38e3c", "account_type": "personal", "balance": 121, "currency": "EUR", "status": "active", "user_id": "eb1c896f-bb29-4cd5-bb6a-52b78591977b", "timestamp": "2024-12-20 15:08:21.664020"}}',
+    '{"event_uuid": "05523b59-3522-4833-9874-8c14b5a260fb", "event_type": "created", "event_timestamp": "2024-12-20 15:08:21.664028", "payload": {"account_id": "deefe0ea-e087-41ba-8ead-37426497f490", "account_type": "business", "balance": 640, "currency": "BRL", "status": "inactive", "user_id": "7e740a4c-ff34-47ce-8e40-5235dd8d9bad", "timestamp": "2024-12-20 15:08:21.664038"}}',
+]

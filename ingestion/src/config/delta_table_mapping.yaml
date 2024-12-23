@@ -1,0 +1,5 @@
+event_table_mapping:
+  user-events:
+    created: "./database/delta-lake/landing/user-events-created"
+    updated: "./database/delta-lake/landing/user-events-updated"
+    deleted: "./database/delta-lake/landing/user-events-deleted"
