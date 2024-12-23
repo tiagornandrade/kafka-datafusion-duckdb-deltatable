@@ -6,4 +6,3 @@ ingestion/src/processor/__pycache__/
 ingestion/src/uploader/__pycache__/
 ingestion/src/writer/__pycache__/
 events/src/__pycache__/
-database/*
