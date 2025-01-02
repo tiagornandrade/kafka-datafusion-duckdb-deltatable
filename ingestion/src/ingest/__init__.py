@@ -1,0 +1,1 @@
+from ingestion.src.ingest.landing_to_raw import run_landing_to_raw_pipeline

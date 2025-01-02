@@ -6,3 +6,8 @@ pandas
 minio
 deltalake
 datafusion
+hues
+dlt
+rich
+pytest
+pre-commit

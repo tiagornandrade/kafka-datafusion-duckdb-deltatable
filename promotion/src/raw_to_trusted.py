@@ -4,6 +4,9 @@ import pandas as pd
 import yaml
 import logging
 from tabulate import tabulate
+from rich.logging import RichHandler
+
+logging.basicConfig(level=logging.INFO, format="%(message)s", handlers=[RichHandler()])
 
 logger = logging.getLogger(__name__)
 
