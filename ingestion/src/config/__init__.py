@@ -1,1 +1,1 @@
-from config.CONST import *
+from ingestion.src.config.CONST import *

@@ -1,6 +1,13 @@
 tables:
   - name: raw_user_events_created
     delta_path: "./database/delta-lake/landing/user-events-created"
+    relevant_fields:
+      - account_id
+      - account_type
+      - balance
+      - currency
+      - status
+      - user_id
     schema:
       - name: event_uuid
         type: STRING
@@ -24,6 +31,13 @@ tables:
         type: STRING
   - name: raw_user_events_deleted
     delta_path: "./database/delta-lake/landing/user-events-deleted"
+    relevant_fields:
+      - account_id
+      - account_type
+      - balance
+      - currency
+      - status
+      - user_id
     schema:
       - name: event_uuid
         type: STRING
@@ -47,6 +61,13 @@ tables:
         type: STRING
   - name: raw_user_events_updated
     delta_path: "./database/delta-lake/landing/user-events-updated"
+    relevant_fields:
+      - account_id
+      - account_type
+      - balance
+      - currency
+      - status
+      - user_id
     schema:
       - name: event_uuid
         type: STRING

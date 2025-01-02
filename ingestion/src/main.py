@@ -1,11 +1,13 @@
 import os
+import duckdb
 import yaml
 import logging
 import pandas as pd
-from consumer.kafka_consumer import consume_messages
-from processor.event_processor import process_events
-from writer.delta_writer import DeltaWriter
-from config.CONST import USER_TOPIC, CONSUMER_CONF
+from ingestion.src.consumer.kafka_consumer import consume_messages
+from ingestion.src.processor.event_processor import process_events
+from ingestion.src.writer.delta_writer import DeltaWriter
+from ingestion.src.config.CONST import USER_TOPIC, CONSUMER_CONF
+from ingestion.src.ingest.landing_to_raw import run_landing_to_raw_pipeline
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -50,6 +52,13 @@ def truncate_timestamp_to_day(df):
     return df
 
 
+def create_table_in_duckdb(conn, table_name, schema):
+    columns = ", ".join([f"{col['name']} {col['type']}" for col in schema])
+    conn.execute(f"DROP TABLE IF EXISTS {table_name}")
+    conn.execute(f"CREATE TABLE IF NOT EXISTS {table_name} ({columns})")
+    logger.info(f"Created table {table_name} with schema: {schema}")
+
+
 def main():
     logger.info("Starting main script execution...")
 
@@ -74,6 +83,13 @@ def main():
         if not processed_results:
             logger.warning("No valid results processed. Exiting.")
             return
+
+        conn = duckdb.connect(":memory:")
+        table_schema = [
+            {"name": "id", "type": "INTEGER"},
+            {"name": "name", "type": "VARCHAR"},
+        ]
+        create_table_in_duckdb(conn, "test_table", table_schema)
 
         for event_type, df in processed_results.items():
             if df.empty:
@@ -105,9 +121,12 @@ def main():
                 )
 
         logger.info("All events processed and written to Delta tables successfully.")
+        conn.close()
 
     except Exception as e:
         logger.error(f"An error occurred during script execution: {e}", exc_info=True)
+
+    run_landing_to_raw_pipeline()
 
 
 if __name__ == "__main__":
