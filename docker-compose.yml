@@ -91,30 +91,19 @@ services:
       timeout: 10s
       retries: 5
 
-#  clickhouse:
-#    image: yandex/clickhouse-server:latest
-#    container_name: clickhouse
-#    ports:
-#      - "9010:9010"
-#      - "8123:8123"
-#      - "9009:9009"
-#    environment:
-#      - CLICKHOUSE_DB=test_db
-#    volumes:
-#      - clickhouse_data:/var/lib/clickhouse
-#    networks:
-#      - subnet
-#    depends_on:
-#      - minio
-#
-#  clickhouse-client:
-#    image: yandex/clickhouse-client:latest
-#    container_name: clickhouse-client
-#    command: ["clickhouse-client", "--host", "clickhouse"]
-#    depends_on:
-#      - clickhouse
-#    networks:
-#      - subnet
+  clickhouse:
+    image: yandex/clickhouse-server:latest
+    container_name: clickhouse
+    ports:
+      - "9010:9010"
+      - "8123:8123"
+      - "9009:9009"
+    environment:
+      - CLICKHOUSE_DB=test_db
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+    networks:
+      - subnet
 
 networks:
   subnet:
