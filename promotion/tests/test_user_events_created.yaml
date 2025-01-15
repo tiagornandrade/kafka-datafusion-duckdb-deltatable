@@ -1,0 +1,41 @@
+test_user_events_created:
+  model: trusted.user_events_created
+  inputs:
+    main.raw_user_events_created:
+      rows:
+        - event_uuid: 'uuid-1'
+          event_timestamp: '2023-12-01T10:00:00'
+          account_id: 'acc-1'
+          balance: 1000
+          status: 'active'
+          user_id: 'user-1'
+        - event_uuid: 'uuid-2'
+          event_timestamp: '2023-12-01T11:00:00'
+          account_id: 'acc-2'
+          balance: 2000
+          status: 'inactive'
+          user_id: 'user-2'
+        - event_uuid: 'uuid-3'
+          event_timestamp: '2023-12-02T09:00:00'
+          account_id: 'acc-1'
+          balance: 1500
+          status: 'active'
+          user_id: 'user-1'
+  outputs:
+    query:
+      rows:
+        - event_uuid: 'uuid-1'
+          event_timestamp: '2023-12-01T10:00:00'
+          account_id: 'acc-1'
+          balance: 1000
+          status: 'active'
+          user_id: 'user-1'
+        - event_uuid: 'uuid-2'
+          event_timestamp: '2023-12-01T11:00:00'
+          account_id: 'acc-2'
+          balance: 2000
+          status: 'inactive'
+          user_id: 'user-2'
+#  variables:
+#    start_date: '2023-12-01 00:00:00'
+#    end_date: '2023-12-02 00:00:00'

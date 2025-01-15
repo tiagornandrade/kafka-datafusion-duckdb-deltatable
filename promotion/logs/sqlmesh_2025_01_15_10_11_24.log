@@ -1,0 +1,7 @@
+2025-01-15 10:11:24,095 - MainThread - sqlmesh.core.config.connection - INFO - Creating new DuckDB adapter for data files: {'database/data_lake.duckdb'} (connection.py:314)
+2025-01-15 10:11:24,678 - MainThread - sqlmesh.core.config.connection - INFO - Creating new DuckDB adapter for in-memory database (connection.py:316)
+2025-01-15 10:11:24,704 - MainThread - sqlmesh.core.config.connection - INFO - Using existing DuckDB adapter due to overlapping data file: database/data_lake.duckdb (connection.py:310)
+2025-01-15 10:11:24,726 - MainThread - sqlmesh.core.state_sync.engine_adapter - INFO - Applying migration <module 'sqlmesh.migrations.v0001_init' from '/Users/tiagonavarro/repositorios-pessoais/kafka-datafusion-duckdb-deltatable/env/lib/python3.9/site-packages/sqlmesh/migrations/v0001_init.py'> (engine_adapter.py:1468)
+2025-01-15 10:11:24,728 - MainThread - sqlmesh.core.engine_adapter.base - WARNING - Failed to create schema 'sqlmesh': IO Error: Cannot open file "/Users/tiagonavarro/repositorios-pessoais/kafka-datafusion-duckdb-deltatable/promotion/database/data_lake.duckdb": No such file or directory (base.py:1115)
+2025-01-15 10:11:24,731 - MainThread - sqlmesh.core.state_sync.engine_adapter - INFO - Starting migration rollback. (engine_adapter.py:1409)
+2025-01-15 10:11:24,750 - MainThread - root - INFO - Shutting down the event dispatcher (dispatcher.py:159)
