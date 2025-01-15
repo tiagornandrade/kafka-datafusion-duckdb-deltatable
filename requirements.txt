@@ -11,3 +11,4 @@ dlt
 rich
 pytest
 pre-commit
+sqlmesh
